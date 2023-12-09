@@ -1,0 +1,29 @@
+{% extends "school/layout.html" %} 
+
+{% load static %} 
+
+{% block title %}Главная{%endblock title %} 
+
+{% block teghome %}link-secondary{% endblock teghome %}
+
+{% block content %}
+<section class="text-center container">
+    <div class="row">
+        
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <img class = "car_logo" src="{% static "img/car_logo.png" %}" alt="">
+            <h1 class="fw-light">CRM для автошколы</h1>
+            <p class="lead text-body-secondary">
+                Система управления взаимоотношениями с клиентами (CRM) для
+                автошколы представляет собой программное решение, разработанное
+                для оптимизации и автоматизации процессов, связанных с ведением
+                клиентской базы, управлением учебными графиками, а также для
+                повышения эффективности взаимодействия с учениками.
+            </p>
+            <p>
+                <a href="#" class="btn btn-primary my-2">Войти</a>
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock content %}

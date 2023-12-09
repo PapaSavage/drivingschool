@@ -1,0 +1,38 @@
+{% extends "school/layout.html" %} 
+
+{% load static %} 
+
+{% block title %}Тарифы{%endblock title %} 
+
+{% block tegtarif %}link-secondary{% endblock tegtarif %}
+
+
+
+{% block content %}
+    <div class="pricing-header p-4 pb-md-4 mx-auto text-center">
+      <h1 class="display-4 fw-normal text-body-emphasis">Тарифы</h1>
+      <p class="fs-5 text-body-secondary col-lg-6 col-md-7 text-center mx-auto">Добро пожаловать в раздел тарифов на обучение в нашей автошколе, где ваше безопасное и уверенное вождение - наш главный приоритет. Мы предлагаем разнообразные тарифные планы, сочетающие в себе качественное обучение, индивидуальный подход и доступные цены.</p>
+    </div>
+    <div class="container row row-cols-1 row-cols-md-3 text-center mx-auto">
+      {% for i in plans_educations %}
+      <div class="col">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-header py-3">
+            <h4 class="my-0 fw-normal">{{ i.0 }}</h4>
+          </div>
+          <div class="card-body">
+            <h1 class="card-title pricing-card-title">{{i.3}} руб</h1>
+            <ul class="list-unstyled mt-3 mb-4">
+              <li>Теоретическое время: {{ i.1}} дня</li>
+              <li>Практическое время: {{ i.2}}</li>
+              <li>Категория вождения: <strong>{{i.4}}</strong></li>
+            </ul>
+            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+    </div>
+
+{% endblock content %}
