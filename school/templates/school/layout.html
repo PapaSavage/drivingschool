@@ -21,24 +21,41 @@
                 class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
                 <div class="col-md-3 mb-2 mb-md-0">
                     <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                        <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
-                            <use xlink:href="#bootstrap" />
-                        </svg>
+                        <img width ="32" height = "32" role = "img" src="{% static "img/car_logo.png" %}" alt="">
+
                     </a>
                 </div>
 
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="{% url 'home' %}" class="nav-link px-2 {% block teghome %}{% endblock teghome %}">Главная</a></li>
+                    {% if user.is_authenticated %}
+          	        {% else %}
+                        <li><a href="{% url 'home' %}" class="nav-link px-2 {% block teghome %}{% endblock teghome %}">Главная</a></li>
+                        <li><a href="{% url 'about' %}" class="nav-link px-2 {% block tegfaq %}{% endblock tegfaq %}">О нас</a></li>
+              	    {% endif %}
                     <li><a href="{% url 'tariffs' %}" class="nav-link px-2 {% block tegtarif %}{% endblock tegtarif %}">Тарифы</a></li>
-                    <li><a href="{% url 'about' %}" class="nav-link px-2 {% block tegfaq %}{% endblock tegfaq %}">О нас</a></li>
                 </ul>
 
+                
+                
                 <div class="col-md-3 text-end">
-                    <button type="button" class="btn btn-outline-primary me-2">Войти</button>
-                    <button type="button" class="btn btn-primary">Зарегистрироваться</button>
+                    {% if user.is_authenticated %}
+                        <a href="{% url "profile" %}"><button type="button" class="btn btn-outline-primary me-2">Профиль</button></a>
+                        <a href="{% url "logout" %}"><button type="button" class="btn btn-outline-primary me-2">Выход</button></a>
+          	        {% else %}
+                        <a href="{% url "login" %}"><button type="button" class="btn btn-outline-primary me-2">Войти</button></a>
+                        <a href="{% url "registration" %}"><button type="button" class="btn btn-primary">Зарегистрироваться</button></a>
+              	    {% endif %}
                 </div>  
             </header>
         </div>
+
+        {% if messages %}
+        	{% for message in messages %}
+          	<div class="alert alert-{{ message.tags }}">
+            	{{ message }}
+          	</div>
+        	{% endfor %}
+        {% endif %}
 
     <main>{% block content %}{% endblock content %}</main>
 </html>

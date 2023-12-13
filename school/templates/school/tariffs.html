@@ -27,7 +27,11 @@
               <li>Практическое время: {{ i.2}}</li>
               <li>Категория вождения: <strong>{{i.4}}</strong></li>
             </ul>
-            <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button>
+            {% if user.is_authenticated %}
+                <a type="button" class="w-100 btn btn-lg btn-outline-primary">Выбрать</a>
+                {% else %}
+                <a type="button" href = "{% url 'login' %}" class="w-100 btn btn-lg btn-outline-primary">Выбрать</a>
+            {% endif %}
           </div>
         </div>
       </div>
