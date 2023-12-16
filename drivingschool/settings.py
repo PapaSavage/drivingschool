@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap4",
     "school",
+    "users",
 ]
 
 # CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
@@ -133,5 +134,5 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "user_home"
 LOGIN_URL = "login"

@@ -1,0 +1,121 @@
+{% extends "users/layout.html" %}
+
+{% load static %}
+
+{% block link_profile %}active{% endblock link_profile %}
+{% block link_home %}link-body-emphasis{% endblock link_home %}
+
+{% block title %}Личный кабинет{%endblock title %}
+
+{% block content %}
+
+<div class="container col-md-8">
+    <main>
+        <div class="py-4 text-center">
+            <img class="d-block mx-auto mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+            <h1>{{user.username}}</h1>
+            {% comment %} <p class="lead"></p> {% endcomment %}
+        </div>
+
+        <div class="px-3">
+            <h4 class="mb-3 text-center">Редактирование профиля</h4>
+            <form class="needs-validation" novalidate>
+                <div class="">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="surname" class="form-label">Фамилия</label>
+                            <input type="text" class="form-control" id="surname" placeholder="Введите фамилию" value=""
+                                required>
+                            <div class="invalid-feedback">
+                                Введите действительную фамилию.
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="firstname" class="form-label">Имя</label>
+                            <input type="text" class="form-control" id="firstname" placeholder="Введите имя" value=""
+                                required>
+                            <div class="invalid-feedback">
+                                Введите действительное имя.
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label for="secondname" class="form-label">Отчество</label>
+                            <input type="text" class="form-control" id="secondname" placeholder="Введите отчество"
+                                value="" required>
+                            <div class="invalid-feedback">
+                                Введите действительное отчество.
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="adress" class="form-label">Адрес</label>
+                            <input type="text" class="form-control" id="adress" placeholder="ул. *********" required>
+                            <div class="invalid-feedback">
+                                Введите действительный адрес.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="text" class="form-control" id="phone" placeholder="+799********" required>
+                            <div class="invalid-feedback">
+                                Введите действительный телефон.
+                            </div>
+                        </div>
+                    </div>
+
+                    <br class="my-4">
+
+                    <div class="row">
+                        <div class="col-md-12"> <label for="inputDate">Введите дату:</label>
+                            <input type="date" class="form-control"></div>
+
+                    </div>
+
+                    <br class="my-4">
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="passport" class="form-label">Серия и номер паспорта.</label>
+                            <input type="text" class="form-control" id="passport" placeholder="3316 ******" required>
+                            <div class="invalid-feedback">
+                                Введите действительную серию и номер паспорта.
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="medicalcertificate" class="form-label">Телефон</label>
+                            <input type="text" class="form-control" id="medicalcertificate" placeholder="421421424223"
+                                required>
+                            <div class="invalid-feedback">
+                                Введите действительный номер медицинской книжки.
+                            </div>
+                        </div>
+                    </div>
+
+                    <br class="my-4">
+
+                    <div class="col-12">
+                        <label for="email" class="form-label">Электронная почта</label>
+                        <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                        <div class="invalid-feedback">
+                            Введите действительную электронную почту.
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+
+                    <button class="w-100 btn btn-primary btn-lg" type="submit">Подтвердить изменения</button>
+            </form>
+        </div>
+    </main>
+</div>
+
+<script src="{% static "js/checkout.js" %}"></script>
+{% endblock content %}

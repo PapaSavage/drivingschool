@@ -12,12 +12,11 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name="school/login.html"),
         name="login",
     ),
+    path("registration", views.registration, name="registration"),
     path(
         "logout",
         auth_views.LogoutView.as_view(template_name="school/logout.html"),
         name="logout",
     ),
-    path("registration", views.registration, name="registration"),
-    path("profile", views.profile, name="profile"),
     # path("", views.home, name="home"),
 ]

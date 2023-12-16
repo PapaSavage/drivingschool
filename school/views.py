@@ -50,8 +50,3 @@ def registration(request):
     else:
         form = UserRegisterForm()
     return render(request, "school/registration.html", {"form": form})
-
-
-@login_required
-def profile(request):
-    return render(request, "school/profile.html")

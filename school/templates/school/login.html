@@ -1,34 +1,34 @@
-{% extends "school/layout.html" %} 
+{% extends "school/layout.html" %}
 
-{% load static %} 
+{% load static %}
 {% load crispy_forms_tags %}
 
 
-{% block title %}Авторизация{%endblock title %} 
+{% block title %}Авторизация{%endblock title %}
 
 {% block teghome %}{% endblock teghome %}
 
 {% block content %}
 
 <div class="content-section container form-signin w-50 m-auto">
-        <form method="POST">
-            {% csrf_token %}
-            <fieldset class="form-group">
-                <legend class="border-bottom mb-4 text-center">Вход</legend>
-                {{ form |crispy }}
-            </fieldset>
-            <br>
-            <div class="form-group text-center">
-                <button class="btn btn-primary " type="submit">Войти</button>
-            </div>
-            <br>
-        </form>
-        <div class="border-top pt-3">
-            <small class="text-muted">
-                Нужен аккаунт? <a class="ml-2" href="{% url 'registration' %}">Регистрация</a>
-            </small>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4 text-center">Вход</legend>
+            {{ form |crispy }}
+        </fieldset>
+        <br>
+        <div class="form-group text-center">
+            <button class="btn btn-primary " type="submit">Войти</button>
         </div>
+        <br>
+    </form>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Нужен аккаунт? <a class="ml-2" href="{% url 'registration' %}">Регистрация</a>
+        </small>
     </div>
-    
+</div>
+
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock content %}
