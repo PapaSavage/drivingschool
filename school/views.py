@@ -19,7 +19,6 @@ def tariffs(request):
         plans_educations = []
         for row in rows:
             plans_educations.append(row)
-        print(rows)
         data = {
             "plans_educations": plans_educations,
         }
@@ -37,6 +36,37 @@ def login(request):
 
 def logout(request):
     return render(request, "school/logout.html")
+
+
+@login_required
+def user_tariffs(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "Select PlansEducations.name, PlansEducations.Theoretical_time, PlansEducations.Practise_time, DrivingCategories.price, DrivingCategories.name, PlansEducations.ID_plan from PlansEducations join DrivingCategories on DrivingCategories.ID_category = PlansEducations.ID_category"
+        )
+        rows = cursor.fetchall()
+        plans_educations = []
+        for row in rows:
+            plans_educations.append(row)
+        data = {
+            "plans_educations": plans_educations,
+        }
+    if request.method == "POST":
+        idplan = request.POST.get("idplan")
+        try:
+            with connection.cursor() as cursor:
+                query = f"Insert IGNORE into Students (ID_student) values ({request.user.id})"
+                cursor.execute(query)
+                query = "Insert into Contracts (DateContractStart, ID_student, ID_plan) values (NOW(), %s, %s)"
+                vals = (request.user.id, idplan)
+                cursor.execute(query, vals)
+                connection.commit()
+
+                messages.success(request, f"План обучения выбран!")
+        except:
+            messages.error(request, f"Ошибка при работе с базой данных.")
+
+    return render(request, "users/tariffs.html", context=data)
 
 
 def registration(request):

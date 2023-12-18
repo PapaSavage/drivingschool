@@ -1,0 +1,60 @@
+{% extends "users/layout.html" %}
+
+{% load static %}
+
+{% block title %}Тарифы{%endblock title %}
+
+{% block link_home %}link-body-emphasis{% endblock link_home %}
+{% block link_profile %}link-body-emphasis{% endblock link_profile %}
+{% block link_tariff %}active{% endblock link_tariff %}
+
+
+{% block content %}
+
+<div class="container">
+
+    <main class="py-4">
+        <div class="pricing-header p-4 pb-md-4 mx-auto text-center">
+            <h1 class="display-4 fw-normal text-body-emphasis py-4">Тарифы</h1>
+            <p class="fs-5 text-body-secondary col-lg-6 col-md-7 text-center mx-auto">Здесь вы можете выбрать
+                интересующий вас тариф.
+            </p>
+        </div>
+        <div class="container row row-cols-1 row-cols-md-3 text-center mx-auto py-4">
+            {% for i in plans_educations %}
+            <form action="" method="post">
+                {% csrf_token %}
+
+                <div class="col">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header py-3">
+                            <h4 class="my-0 fw-normal">{{ i.0 }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title pricing-card-title">{{i.3}} руб</h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>Теоретическое время: {{ i.1}} часов</li>
+                                <li>Практическое время: {{ i.2}} часов</li>
+                                <li>Категория вождения: <strong>{{i.4}}</strong></li>
+                            </ul>
+                            {% if user.is_authenticated %}
+                            <input name="idplan" type="hidden" value="{{i.5}}">
+
+                            <button type="submit" class="w-100 btn btn-lg btn-outline-primary">Выбрать</button>
+
+
+                            {% else %}
+                            <a type="button" href="{% url 'login' %}"
+                                class="w-100 btn btn-lg btn-outline-primary">Выбрать</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+
+{% endblock content %}
