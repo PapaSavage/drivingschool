@@ -15,9 +15,9 @@
 </head>
 
 <body>
-    
+
     <main class="d-flex flex-nowrap">
-        
+
         <div class="d-flex flex-column flex-shrink-1 p-3 bg-body-tertiary" style="width: 280px;">
             <a href="{% url "profile" %}"
                 class="d-flex align-items-center mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
@@ -33,23 +33,7 @@
             </a>
             <hr>
             <ul class="nav nav-pills flex-column mb-auto" style="">
-                <li class="nav-item ">
-                    <a href="{% url "user_home" %}" class="nav-link {% block link_home %}{% endblock link_home %}">
-                        <i class="fas fa-house-user fa-fw me-1"></i> Главная
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{% url "profile" %}" class="nav-link {% block link_profile %}{% endblock link_profile %}">
-                        <i class="fas fa-child fa-fw me-1"></i> Личный кабинет
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a href="{% url "user_tariffs" %}"
-                        class="nav-link {% block link_tariff %}{% endblock link_tariff %}"
-                        >
-                        <i class="fas fa-receipt fa-fw me-1"></i> Тарифы
-                    </a>
-                </li>
+                {% block refs %}{% endblock refs %}
             </ul>
             <hr>
             <a href="{% url "logout" %}"><button type="button"
@@ -62,7 +46,7 @@
 
         {% endblock content %}
 
-        
+
     </main>
 
     <script src="{% static "js/sidebars.js" %}"></script>

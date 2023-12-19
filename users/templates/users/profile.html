@@ -4,9 +4,15 @@
 
 {% block title %}Личный кабинет{%endblock title %}
 
-{% block link_home %}link-body-emphasis{% endblock link_home %}
-{% block link_profile %}active{% endblock link_profile %}
-{% block link_tariff %}link-body-emphasis{% endblock link_tariff %}
+{% block refs %}
+{% for link in links %}
+<li class="nav-item ">
+    <a href="{% url link.url %}" class="nav-link {{link.name_block}}">
+        <i class="{{link.icon_class}}"></i> {{link.title}}
+    </a>
+</li>
+{% endfor %}
+{% endblock refs %}
 
 {% block content %}
 

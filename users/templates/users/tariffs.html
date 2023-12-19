@@ -4,16 +4,30 @@
 
 {% block title %}Тарифы{%endblock title %}
 
-{% block link_home %}link-body-emphasis{% endblock link_home %}
-{% block link_profile %}link-body-emphasis{% endblock link_profile %}
-{% block link_tariff %}active{% endblock link_tariff %}
+{% block refs %}
+{% for link in links %}
+<li class="nav-item ">
+    <a href="{% url link.url %}" class="nav-link {{link.name_block}}">
+        <i class="{{link.icon_class}}"></i> {{link.title}}
+    </a>
+</li>
+{% endfor %}
+{% endblock refs %}
 
 
 {% block content %}
 
 <div class="container">
 
-    <main class="py-4">
+    <main class="py-1">
+        {% if messages %}
+        {% for message in messages %}
+        <br class="">
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
         <div class="pricing-header p-4 pb-md-4 mx-auto text-center">
             <h1 class="display-4 fw-normal text-body-emphasis py-4">Тарифы</h1>
             <p class="fs-5 text-body-secondary col-lg-6 col-md-7 text-center mx-auto">Здесь вы можете выбрать
