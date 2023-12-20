@@ -50,6 +50,7 @@ def profile(request):
     if student_exist(request):
         links = {"links": links_student_profile}
     else:
+        messages.error(request, f"У вас нет доступа к этой ссылке")
         return redirect("user_home")
 
     user_data = {"user_data": user_data} | links
