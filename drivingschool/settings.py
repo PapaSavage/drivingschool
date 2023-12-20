@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "crispy_bootstrap4",
     "school",
     "users",
+    "student",
 ]
 
 # CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"

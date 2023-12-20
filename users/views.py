@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.db import connection
 from django.contrib.auth.decorators import login_required
 from .models import Users
+from usertype import *
 
 # Create your views here.
 
@@ -151,6 +152,34 @@ links_instructor_profile = [
         "icon_class": "fas fa-child fa-fw me-1",
     },
 ]
+links_student_home = [
+    {
+        "url": "user_home",
+        "name_block": "active",
+        "title": "Главная",
+        "icon_class": "fas fa-house-user fa-fw me-1",
+    },
+    {
+        "url": "profile",
+        "name_block": "link-body-emphasis",
+        "title": "Личный кабинет",
+        "icon_class": "fas fa-child fa-fw me-1",
+    },
+]
+links_student_profile = [
+    {
+        "url": "user_home",
+        "name_block": "link-body-emphasis",
+        "title": "Главная",
+        "icon_class": "fas fa-house-user fa-fw me-1",
+    },
+    {
+        "url": "profile",
+        "name_block": "active",
+        "title": "Личный кабинет",
+        "icon_class": "fas fa-child fa-fw me-1",
+    },
+]
 
 
 def check_user_reg(request):
@@ -166,55 +195,6 @@ def check_user_reg(request):
         return False
 
 
-def admin_exist(request):
-    with connection.cursor() as cursor:
-        cursor.execute(
-            "Select is_admin from Users where ID_user = %s", (request.user.id,)
-        )
-        row = cursor.fetchone()
-    if row[0] == 1:
-        return True
-    else:
-        return False
-
-
-def student_exist(request):
-    with connection.cursor() as cursor:
-        cursor.execute(
-            "Select ID_student from Students where ID_student = %s", (request.user.id,)
-        )
-        row = cursor.fetchone()
-    if row:
-        return True
-    else:
-        return False
-
-
-def instructor_exist(request):
-    with connection.cursor() as cursor:
-        cursor.execute(
-            "Select ID_instructor from Instructors where ID_instructor = %s",
-            (request.user.id,),
-        )
-        row = cursor.fetchone()
-    if row:
-        return True
-    else:
-        return False
-
-
-def lecture_exist(request):
-    with connection.cursor() as cursor:
-        cursor.execute(
-            "Select ID_lecture from Lectures where ID_lecture = %s", (request.user.id,)
-        )
-        row = cursor.fetchone()
-    if row:
-        return True
-    else:
-        return False
-
-
 @login_required
 def home(request):
     if admin_exist(request):
@@ -225,6 +205,9 @@ def home(request):
 
     elif lecture_exist(request):
         links = {"links": links_lecture_home}
+
+    elif student_exist(request):
+        return redirect("student_home")
 
     else:
         if not check_user_reg(request):
@@ -253,6 +236,10 @@ def user_tariffs(request):
 
     elif lecture_exist(request):
         messages.info(request, f"Вы являетесь лектором.")
+        return redirect("user_home")
+
+    elif student_exist(request):
+        messages.info(request, f"Вы уже являетесь студентом.")
         return redirect("user_home")
 
     else:
@@ -304,6 +291,9 @@ def profile(request):
     elif lecture_exist(request):
         links = {"links": links_lecture_profile}
 
+    elif student_exist(request):
+        links = {"links": links_student_profile}
+
     else:
         links = {"links": links_user_profile}
         if check_user_reg(request):
@@ -345,7 +335,7 @@ def profile(request):
             if check_user_reg(request):
                 if not student_exist(request):
                     messages.info(request, f"Выберите учебный план")
-                    return redirect("user_tariffs")
+                    return redirect("user_home")
         except:
             messages.error(request, f"Ошибка сохранения данных.")
 
