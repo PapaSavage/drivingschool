@@ -17,7 +17,7 @@ links_student_home = [
         "icon_class": "fas fa-house-user fa-fw me-1",
     },
     {
-        "url": "profile",
+        "url": "student_profile",
         "name_block": "link-body-emphasis",
         "title": "Личный кабинет",
         "icon_class": "fas fa-child fa-fw me-1",
@@ -29,6 +29,12 @@ links_student_profile = [
         "name_block": "link-body-emphasis",
         "title": "Главная",
         "icon_class": "fas fa-house-user fa-fw me-1",
+    },
+    {
+        "url": "student_profile",
+        "name_block": "active",
+        "title": "Личный кабинет",
+        "icon_class": "fas fa-child fa-fw me-1",
     },
 ]
 

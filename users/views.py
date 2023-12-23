@@ -2,7 +2,10 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.db import connection
 from django.contrib.auth.decorators import login_required
-from .models import Users
+import sys
+
+sys.path.append(r"D:\Projects\drivingschool")
+from users.models import Users
 from usertype import *
 
 # Create your views here.
@@ -198,26 +201,25 @@ def check_user_reg(request):
 @login_required
 def home(request):
     if admin_exist(request):
-        links = {"links": links_admin_home}
+        return redirect("admin_home")
 
     elif instructor_exist(request):
-        links = {"links": links_instructor_home}
+        return redirect("instructor_home")
 
     elif lecture_exist(request):
-        links = {"links": links_lecture_home}
+        return redirect("lector_home")
 
     elif student_exist(request):
         return redirect("student_home")
 
     else:
+        links = {"links": links_user_home}
         if not check_user_reg(request):
             messages.info(request, f"Введите свои данные.")
             return redirect("profile")
         elif not student_exist(request):
             messages.info(request, f"Выберите учебный план")
             return redirect("user_tariffs")
-
-        links = {"links": links_user_home}
 
     data = links
 
@@ -228,19 +230,19 @@ def home(request):
 def user_tariffs(request):
     if admin_exist(request):
         messages.info(request, f"Вы являетесь администратором.")
-        return redirect("user_home")
+        return redirect("admin_home")
 
     elif instructor_exist(request):
         messages.info(request, f"Вы являетесь инструктором.")
-        return redirect("user_home")
+        return redirect("instructor_home")
 
     elif lecture_exist(request):
         messages.info(request, f"Вы являетесь лектором.")
-        return redirect("user_home")
+        return redirect("lecture_home")
 
     elif student_exist(request):
         messages.info(request, f"Вы уже являетесь студентом.")
-        return redirect("user_home")
+        return redirect("student_home")
 
     else:
         if not check_user_reg(request):
@@ -271,7 +273,8 @@ def user_tariffs(request):
                         cursor.execute(query, vals)
                         connection.commit()
 
-                        messages.success(request, f"План обучения выбран!")
+                        messages.success(request, f"Добро пожаловать в автошколу!")
+                    return redirect("student_home")
 
                 except:
                     messages.error(request, f"Ошибка при работе с базой данных.")
@@ -283,16 +286,16 @@ def user_tariffs(request):
 def profile(request):
     user_data = Users.objects.get(id_user=request.user.id)
     if admin_exist(request):
-        links = {"links": links_admin_profile}
+        return redirect("admin_profile")
 
     elif instructor_exist(request):
-        links = {"links": links_instructor_profile}
+        return redirect("instructor_profile")
 
     elif lecture_exist(request):
-        links = {"links": links_lecture_profile}
+        return redirect("lecture_profile")
 
     elif student_exist(request):
-        links = {"links": links_student_profile}
+        return redirect("student_profile")
 
     else:
         links = {"links": links_user_profile}
@@ -334,7 +337,6 @@ def profile(request):
             messages.success(request, f"Изменения успешно сохранены.")
             if check_user_reg(request):
                 if not student_exist(request):
-                    messages.info(request, f"Выберите учебный план")
                     return redirect("user_home")
         except:
             messages.error(request, f"Ошибка сохранения данных.")

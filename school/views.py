@@ -3,10 +3,23 @@ from django.contrib import messages
 from django.db import connection
 from .forms import UserRegisterForm
 from django.contrib.auth.decorators import login_required
+from usertype import *
 
 
 # Create your views here.
 def home(request):
+    if admin_exist(request):
+        return redirect("admin_home")
+
+    elif instructor_exist(request):
+        return redirect("instructor_home")
+
+    elif lecture_exist(request):
+        return redirect("lector_home")
+
+    elif student_exist(request):
+        return redirect("student_home")
+
     return render(request, "school/home.html")
 
 

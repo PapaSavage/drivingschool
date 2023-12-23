@@ -8,5 +8,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.home, name="student_home"),
+    path("profile", views.profile, name="student_profile"),
     # path("", views.home, name="home"),
 ]

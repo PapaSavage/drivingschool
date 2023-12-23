@@ -160,3 +160,7 @@ main {
 .sh_right {
     box-shadow: 4px 4px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
 }
+
+.try {
+    height: 600px;
+}

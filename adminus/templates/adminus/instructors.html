@@ -1,0 +1,64 @@
+{% extends "users/layout.html" %}
+
+{% load static %}
+
+{% block title %}Инструкторы{%endblock title %}
+
+{% block refs %}
+{% for link in links %}
+<li class="nav-item ">
+    <a href="{% url link.url %}" class="nav-link {{link.name_block}}">
+        <i class="{{link.icon_class}}"></i> {{link.title}}
+    </a>
+</li>
+{% endfor %}
+{% endblock refs %}
+
+{% block content %}
+<div class="container">
+    <main class="py-4">
+
+        {% if messages %}
+        {% for message in messages %}
+        <br class="py-1">
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="container col-md-10">
+            <h1 class="text-center">Инструкторы</h1>
+            <hr class="py-1">
+            <main class="try">
+                <table class="table align-middle">
+                    <thead>
+                        <tr class="">
+                            <th scope="col">#</th>
+                            <th scope="col">ФИО</th>
+                            <th scope="col">Телефон</th>
+                            <th scope="col">Машина</th>
+                            <th scope="col"> </th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td class="text-end"><button class="btn-primary btn"><i class="fas fa-edit fa-fw"
+                                        style="width: 15px;"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+        </div>
+        <div class="container d-flex justify-content-end py-2 col-md-10">
+            <button class="btn btn-primary text-end mx-2" style="">Изменить</button>
+            <button class="btn btn-primary text-end" style="">Добавить инструктора</button>
+        </div>
+
+    </main>
+</div>
+{% endblock content %}
