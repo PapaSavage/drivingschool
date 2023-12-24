@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Лекторы{%endblock title %}
+{% block title %}Студенты{%endblock title %}
 
 {% block refs %}
 {% for link in links %}
@@ -27,7 +27,7 @@
         {% endfor %}
         {% endif %}
         <div class="container col-md-10">
-            <h1 class="text-center">Лекторы</h1>
+            <h1 class="text-center">Студенты</h1>
             <hr class="py-1">
             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Поиск по ФИО" class="form-control">
 
@@ -40,20 +40,30 @@
                             <th scope="col">ID_user</th>
                             <th scope="col">ФИО</th>
                             <th scope="col">Телефон</th>
+                            <th scope="col">Группа</th>
+                            <th scope="col">Категория</th>
+                            <th scope="col">План обучения</th>
+                            <th scope="col">Машина</th>
+                            <th scope="col">Инструктор</th>
                             <th scope="col"> </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for lecture in lectures %}
+                        {% for student in students %}
                         <tr>
                             <th scope="row">{{forloop.counter}}</th>
-                            <td>{{lecture.0}}</td>
-                            <td>{{lecture.1}}</td>
-                            <td>{{lecture.2}}</td>
+                            <td>{{student.0}}</td>
+                            <td>{{student.1}}</td>
+                            <td>{{student.2}}</td>
+                            <td>{{student.3}}</td>
+                            <td>{{student.4}}</td>
+                            <td>{{student.5}}</td>
+                            <td>{{student.6}}</td>
+                            <td>{{student.7}}</td>
                             <td class="text-end"><button class="btn-primary btn" data-bs-toggle="modal"
-                                    data-bs-target="#lect{{lecture.0}}"><i class="fas fa-edit fa-fw"
+                                    data-bs-target="#lect{{student.0}}"><i class="fas fa-edit fa-fw"
                                         style="width: 15px;"></i></button>
-                                <div class="modal fade" id="lect{{lecture.0}}" tabindex="-1"
+                                <div class="modal fade" id="lect{{student.0}}" tabindex="-1"
                                     aria-labelledby="{{lecture.0}}" class="" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                         <div class="modal-content">
@@ -70,11 +80,11 @@
                                                     <hr class="my-2">
                                                     <div class="">
                                                         <div class="row">
-                                                            <div class="col-md-12"> <label for="lect_id"
+                                                            <div class="col-md-12"> <label for="stud_id"
                                                                     class="form-label">Личный
                                                                     идентификатор</label>
-                                                                <input type="text" name="lect_id" class="form-control"
-                                                                    value="{{lecture.0}}" readonly>
+                                                                <input type="text" name="stud_id" class="form-control"
+                                                                    value="{{student.0}}" readonly>
                                                             </div>
 
                                                         </div>
@@ -85,7 +95,7 @@
                                                                 <label for="surname" class="form-label">Фамилия</label>
                                                                 <input name="surname" type="text" class="form-control"
                                                                     id="surname" placeholder="Введите фамилию"
-                                                                    value="{{lecture.3}}" required>
+                                                                    value="{{student.8}}" required>
                                                                 <div class="invalid-feedback">
                                                                     Введите действительную фамилию.
                                                                 </div>
@@ -94,7 +104,7 @@
                                                                 <label for="firstname" class="form-label">Имя</label>
                                                                 <input name="firstname" type="text" class="form-control"
                                                                     id="firstname" placeholder="Введите имя"
-                                                                    value="{{lecture.4}}" required>
+                                                                    value="{{student.9}}" required>
                                                                 <div class="invalid-feedback">
                                                                     Введите действительное имя.
                                                                 </div>
@@ -105,8 +115,8 @@
                                                                     class="form-label">Отчество</label>
                                                                 <input type="text" name="secondname"
                                                                     class="form-control" id="secondname"
-                                                                    placeholder="Введите отчество" value="{{lecture.5}}"
-                                                                    required>
+                                                                    placeholder="Введите отчество"
+                                                                    value="{{student.10}}" required>
                                                                 <div class="invalid-feedback">
                                                                     Введите действительное отчество.
                                                                 </div>
@@ -120,7 +130,7 @@
                                                                 <label for="adress" class="form-label">Адрес</label>
                                                                 <input type="text" name="adress" class="form-control"
                                                                     id="adress" placeholder="ул. *********"
-                                                                    value="{{lecture.6}}" required>
+                                                                    value="{{student.11}}" required>
                                                                 <div class="invalid-feedback">
                                                                     Введите действительный адрес.
                                                                 </div>
@@ -129,7 +139,7 @@
                                                                 <label for="phone" class="form-label">Телефон</label>
                                                                 <input type="text" name="phone" class="form-control"
                                                                     id="phone" placeholder="+799********"
-                                                                    value="{{lecture.2}}" required>
+                                                                    value="{{student.12}}" required>
                                                                 <div class="invalid-feedback">
                                                                     Введите действительный телефон.
                                                                 </div>
@@ -142,7 +152,7 @@
                                                             <div class="col-md-12"> <label for="inputDate">Дата
                                                                     рождения</label>
                                                                 <input type="date" name="date" class="form-control"
-                                                                    value="{{lecture.7}}">
+                                                                    value="{{student.13}}">
                                                             </div>
 
                                                         </div>
@@ -156,7 +166,7 @@
                                                                     паспорта.</label>
                                                                 <input type="text" name="passport" class="form-control"
                                                                     id="passport" placeholder="3316 ******"
-                                                                    value="{{lecture.8}}" required>
+                                                                    value="{{student.14}}" required>
                                                                 <div class="invalid-feedback">
                                                                     Введите действительную серию и номер паспорта.
                                                                 </div>
@@ -167,7 +177,7 @@
                                                                     книжки</label>
                                                                 <input type="text" name="medicalcertificate"
                                                                     class="form-control" id="medicalcertificate"
-                                                                    placeholder="421421424223" value="{{lecture.9}}"
+                                                                    placeholder="421421424223" value="{{student.15}}"
                                                                     required>
                                                                 <div class="invalid-feedback">
                                                                     Введите действительный номер медицинской книжки.
@@ -182,11 +192,34 @@
                                                                 почта</label>
                                                             <input type="email" name="email" class="form-control"
                                                                 id="email" placeholder="you@example.com"
-                                                                value="{{lecture.10}}" required>
+                                                                value="{{student.16}}" required>
                                                             <div class="invalid-feedback">
                                                                 Введите действительную электронную почту.
                                                             </div>
                                                         </div>
+
+                                                        <br class="my-2">
+
+                                                        <div class="col-12">
+                                                            <select class="form-select"
+                                                                aria-label="Default select example" name="inst_id"
+                                                                id="inst_id">
+                                                                {% for instructor in instructors %}
+                                                                {% if instructor.1 != student.7 %}<option
+                                                                    value="{{instructor.0}}">{{instructor.1}}
+                                                                </option>
+
+                                                                {% else %}
+
+                                                                <option selected value="{{instructor.0}}">
+                                                                    {{instructor.1}}</option>
+
+                                                                {% endif %}
+
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+
                                                         <br>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
@@ -210,7 +243,7 @@
                 </table>
             </main>
         </div>
-        <div class="container d-flex justify-content-end py-2 col-md-10">
+        {% comment %} <div class="container d-flex justify-content-end py-2 col-md-10">
             <button type="button" class="btn btn-primary text-end" data-bs-toggle="modal" data-bs-target="#addlecture">
                 Добавить лектора
             </button>
@@ -358,7 +391,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> {% endcomment %}
     </main>
 </div>
 
