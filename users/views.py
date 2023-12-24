@@ -268,9 +268,63 @@ def user_tariffs(request):
                     with connection.cursor() as cursor:
                         query = f"Insert IGNORE into Students (ID_student) values ({request.user.id})"
                         cursor.execute(query)
-                        query = "Insert into Contracts (DateContractStart, ID_student, ID_plan) values (NOW(), %s, %s)"
-                        vals = (request.user.id, idplan)
+
+                        query = """SELECT g.ID_group, g.Name
+FROM Groupes g
+LEFT JOIN Contracts c ON g.ID_group = c.ID_group
+where c.ID_plan = %s
+GROUP BY g.ID_group, g.Name
+HAVING COUNT(c.ID_contract) < 20
+ORDER BY g.ID_group;"""
+                        vals = (idplan,)
+
                         cursor.execute(query, vals)
+                        row = cursor.fetchone()
+                        if row:
+                            idgroup = row[0]
+                        else:
+                            query = f"""SELECT Lectures.ID_lecture 
+        FROM Lectures 
+        LEFT JOIN Groupes ON Groupes.ID_lecture = Lectures.ID_lecture 
+        GROUP BY ID_lecture 
+        ORDER BY COUNT(*) 
+        LIMIT 1"""
+                            cursor.execute(query)
+                            ID_lecture = cursor.fetchone()[0]
+                            query = f"""SELECT Lectures.ID_lecture 
+        FROM Lectures 
+        LEFT JOIN Groupes ON Groupes.ID_lecture = Lectures.ID_lecture 
+        GROUP BY ID_lecture 
+        ORDER BY COUNT(*) 
+        LIMIT 1"""
+                            cursor.execute(query)
+                            group_name = cursor.fetchone()[0]
+
+                            query = (
+                                "INSERT INTO Groupes (ID_lecture, Name) Values (%s, %s)"
+                            )
+                            vals = (ID_lecture, group_name)
+                            cursor.execute(query, vals)
+
+                            query = "SELECT ID_group FROM Groupes ORDER by ID_group desc limit 1"
+                            cursor.execute(query)
+
+                            row = cursor.fetchone()
+
+                            idgroup = row[0]
+
+                        query = "SELECT DrivingCategories.ID_category FROM DrivingCategories JOIN PlansEducations ON DrivingCategories.ID_category = PlansEducations.ID_category WHERE PlansEducations.ID_plan = 4;"
+                        cursor.execute(query)
+                        drivingcategory = cursor.fetchone()[0]
+
+                        query = f"Select Instructors.ID_instructor, Count(*) as quantity from Instructors LEFT JOIN Contracts on Instructors.ID_instructor = Contracts.ID_instructor where Instructors.ID_instructor in (Select ID_instructor from Instructors where ID_category = {drivingcategory}) GROUP by ID_instructor ORDER by quantity ASC Limit 1"
+                        cursor.execute(query)
+                        instructor_id = cursor.fetchone()[0]
+
+                        query = "Insert into Contracts (DateContractStart, ID_group, ID_instructor, ID_student, ID_plan) values (NOW(), %s, %s, %s, %s)"
+                        vals = (idgroup, instructor_id, request.user.id, idplan)
+                        cursor.execute(query, vals)
+
                         connection.commit()
 
                         messages.success(request, f"Добро пожаловать в автошколу!")

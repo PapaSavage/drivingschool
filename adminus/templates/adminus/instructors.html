@@ -218,24 +218,51 @@
                                                         </div>
                                                         <br>
 
-                                                        <div class="col-12">
-                                                            <label for="reg_number_auto"
-                                                                class="form-label">Регистрационный
-                                                                номер
-                                                                авто</label>
-                                                            <input type="text" name="reg_number_auto"
-                                                                class="form-control" id="reg_number_auto"
-                                                                placeholder="Введите номер авто"
-                                                                value="{{instructor.13}}" required>
-                                                            <div class="invalid-feedback">
-                                                                Введите регистрационный номер авто.
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label for="reg_number_auto" class="form-label">Рег.
+                                                                    номер
+                                                                    авто</label>
+                                                                <input type="text" name="reg_number_auto"
+                                                                    class="form-control" id="reg_number_auto"
+                                                                    placeholder="Введите номер авто"
+                                                                    value="{{instructor.13}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите регистрационный номер авто.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="drivingcategory" class="form-label">
+                                                                    Категория вождения</label>
+                                                                <select class="form-select"
+                                                                    aria-label="Default select example"
+                                                                    name="drivingcategory" id="drivingcategory">
+                                                                    {% for category in drivingcategories %}
+                                                                    {% if category.1 != instructor.14 %}<option
+                                                                        value="{{category.0}}">
+                                                                        {{category.1}}
+                                                                    </option>
+
+                                                                    {% else %}
+
+                                                                    <option selected value="{{category.0}}">
+                                                                        {{category.1}}</option>
+
+                                                                    {% endif %}
+
+                                                                    {% endfor %}
+                                                                </select>
                                                             </div>
                                                         </div>
+
+
 
                                                         <br>
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary"
                                                                 data-bs-dismiss="modal">Закрыть</button>
+                                                            <button class="btn btn-danger" name="del" value="haha"
+                                                                type="submit">Удалить</button>
                                                             <button type="submit" class="btn btn-primary">Сохранить
                                                                 изменения</button>
                                                         </div>
@@ -418,14 +445,37 @@
                                     </div>
                                     <br>
 
-                                    <div class="col-12">
-                                        <label for="reg_number_auto" class="form-label">Регистрационный номер
-                                            авто</label>
-                                        <input type="text" name="reg_number_auto" class="form-control"
-                                            id="reg_number_auto" placeholder="Введите номер авто"
-                                            value="{{user_data.secondname}}" required>
-                                        <div class="invalid-feedback">
-                                            Введите регистрационный номер авто.
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="reg_number_auto" class="form-label">Рег.
+                                                номер
+                                                авто</label>
+                                            <input type="text" name="reg_number_auto" class="form-control"
+                                                id="reg_number_auto" placeholder="Введите номер авто"
+                                                value="{{instructor.13}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите регистрационный номер авто.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="drivingcategory" class="form-label">
+                                                Категория вождения</label>
+                                            <select class="form-select" aria-label="Default select example"
+                                                name="drivingcategory" id="drivingcategory">
+                                                {% for category in drivingcategories %}
+                                                {% if category.1 != instructor.14 %}<option value="{{category.0}}">
+                                                    {{category.1}}
+                                                </option>
+
+                                                {% else %}
+
+                                                <option selected value="{{category.0}}">
+                                                    {{category.1}}</option>
+
+                                                {% endif %}
+
+                                                {% endfor %}
+                                            </select>
                                         </div>
                                     </div>
 

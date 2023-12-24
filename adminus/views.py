@@ -190,7 +190,7 @@ def instructors(request):
 
         with connection.cursor() as cursor:
             cursor.execute(
-                "SELECT Users.ID_user, CONCAT(Users.Surname, ' ', Users.Name, ' ', Users.SecondName) as FIO, Users.Telephone as Telephone, Cars.Model as Model, Users.Surname, Users.Name, Users.SecondName, Users.Adress, Users.DateOfBirth, Users.Passport, Users.SeriaMedicalCertificate, Users.Email, Cars.Color_auto, Cars.Reg_number_auto FROM Instructors JOIN Users on Instructors.ID_instructor = Users.ID_user LEFT JOIN Cars on Instructors.ID_car = Cars.ID_car"
+                "SELECT Users.ID_user, CONCAT(Users.Surname, ' ', Users.Name, ' ', Users.SecondName) as FIO, Users.Telephone as Telephone, Cars.Model as Model, Users.Surname, Users.Name, Users.SecondName, Users.Adress, Users.DateOfBirth, Users.Passport, Users.SeriaMedicalCertificate, Users.Email, Cars.Color_auto, Cars.Reg_number_auto, DrivingCategories.Name FROM Instructors JOIN Users on Instructors.ID_instructor = Users.ID_user LEFT JOIN Cars on Instructors.ID_car = Cars.ID_car left JOIN DrivingCategories on Instructors.ID_category = DrivingCategories.ID_category"
             )
             rows = cursor.fetchall()
             instructors_data = []
@@ -199,9 +199,17 @@ def instructors(request):
             cursor.execute("Select Count(*) from Instructors")
             row = cursor.fetchone()
             count = row[0]
+
+            cursor.execute("Select ID_category, Name from DrivingCategories")
+            rows = cursor.fetchall()
+            drivingcategory_data = []
+            for row in rows:
+                drivingcategory_data.append(row)
+
             instruct = {
                 "instructors": instructors_data,
                 "count": count,
+                "drivingcategories": drivingcategory_data,
             }
 
         data = data | instruct
@@ -225,6 +233,16 @@ def instructors(request):
             modelcar = request.POST.get("modelcar")
             colorcar = request.POST.get("colorcar")
             reg_number_auto = request.POST.get("reg_number_auto")
+            drivingcategory = request.POST.get("drivingcategory")
+            delcheck = request.POST.get("del")
+
+            if delcheck:
+                user_to_delete = User.objects.get(id=inst_id)
+
+                # Удалите пользователя
+                user_to_delete.delete()
+                messages.success(request, f"Изменения успешно сохранены.")
+                return redirect("admin_instructors")
 
             if login:
                 user = User.objects.create_user(login, email, password)
@@ -247,7 +265,7 @@ def instructors(request):
                         row = cursor.fetchone()
                         car_id = row[0]
 
-                        query = f"Insert into Instructors (ID_instructor, ID_car) VALUES ({inst_id}, {car_id})"
+                        query = f"Insert into Instructors (ID_instructor, ID_car, ID_category) VALUES ({inst_id}, {car_id}, {drivingcategory})"
                         cursor.execute(query)
 
                     query = "Update Users Set Surname = %s, Name = %s, SecondName = %s, Adress = %s, Telephone = %s, DateOfBirth = %s, Passport = %s, SeriaMedicalCertificate = %s, email = %s where id_user = %s"
@@ -269,6 +287,9 @@ def instructors(request):
                     cursor.execute(query)
                     row = cursor.fetchone()
                     car_id = row[0]
+
+                    query = f"Update Instructors set ID_category = {drivingcategory} where ID_instructor = {inst_id}"
+                    cursor.execute(query)
 
                     query = "Update Cars Set Model = %s, Color_auto = %s, Reg_number_auto = %s where ID_car = %s"
                     vals = (modelcar, colorcar, reg_number_auto, car_id)
@@ -324,6 +345,14 @@ def lectures(request):
             passport = request.POST.get("passport")
             medicalcertificate = request.POST.get("medicalcertificate")
             email = request.POST.get("email")
+
+            delcheck = request.POST.get("del")
+
+            if delcheck:
+                user_to_delete = User.objects.get(id=lect_id)
+                user_to_delete.delete()
+                messages.success(request, f"Изменения успешно сохранены.")
+                return redirect("admin_lectures")
 
             if login:
                 user = User.objects.create_user(login, email, password)
@@ -446,6 +475,13 @@ LEFT JOIN Users AS InstructorUsers ON Instructors.ID_instructor = InstructorUser
             email = request.POST.get("email")
 
             inst_id = request.POST.get("inst_id")
+            delcheck = request.POST.get("del")
+
+            if delcheck:
+                user_to_delete = User.objects.get(id=stud_id)
+                user_to_delete.delete()
+                messages.success(request, f"Изменения успешно сохранены.")
+                return redirect("admin_lectures")
 
             if login:
                 user = User.objects.create_user(login, email, password)
