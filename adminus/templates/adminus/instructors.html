@@ -15,7 +15,7 @@
 {% endblock refs %}
 
 {% block content %}
-<div class="container">
+<div class="container-fluid">
     <main class="py-4">
 
         {% if messages %}
@@ -29,36 +29,424 @@
         <div class="container col-md-10">
             <h1 class="text-center">Инструкторы</h1>
             <hr class="py-1">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Поиск по ФИО" class="form-control">
+
+            <br>
             <main class="try">
-                <table class="table align-middle">
+                <table class="table align-middle" id="myTable">
                     <thead>
                         <tr class="">
                             <th scope="col">#</th>
+                            <th scope="col">ID_user</th>
                             <th scope="col">ФИО</th>
                             <th scope="col">Телефон</th>
                             <th scope="col">Машина</th>
                             <th scope="col"> </th>
                         </tr>
                     </thead>
-                    <tbody class="">
+                    <tbody>
+                        {% for instructor in instructors %}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td class="text-end"><button class="btn-primary btn"><i class="fas fa-edit fa-fw"
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{instructor.0}}</td>
+                            <td>{{instructor.1}}</td>
+                            <td>{{instructor.2}}</td>
+                            <td>{{instructor.3}}</td>
+                            <td class="text-end"><button class="btn-primary btn" data-bs-toggle="modal"
+                                    data-bs-target="#inst{{instructor.0}}"><i class="fas fa-edit fa-fw"
                                         style="width: 15px;"></i></button>
+                                <div class="modal fade" id="inst{{instructor.0}}" tabindex="-1"
+                                    aria-labelledby="{{instructor.0}}" class="" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="addinstructorLabel">Добавить инструктора
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Закрыть"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form class="needs-validation" method="post">
+                                                    {% csrf_token %}
+                                                    <h5 class="text-center">Личные данные</h5>
+                                                    <hr class="my-2">
+                                                    <div class="">
+                                                        <div class="row">
+                                                            <div class="col-md-12"> <label for="inst_id"
+                                                                    class="form-label">Личный
+                                                                    идентификатор</label>
+                                                                <input type="text" name="inst_id" class="form-control"
+                                                                    value="{{instructor.0}}" readonly>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <hr class="my-3">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <label for="surname" class="form-label">Фамилия</label>
+                                                                <input name="surname" type="text" class="form-control"
+                                                                    id="surname" placeholder="Введите фамилию"
+                                                                    value="{{instructor.4}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите действительную фамилию.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <label for="firstname" class="form-label">Имя</label>
+                                                                <input name="firstname" type="text" class="form-control"
+                                                                    id="firstname" placeholder="Введите имя"
+                                                                    value="{{instructor.5}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите действительное имя.
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-4">
+                                                                <label for="secondname"
+                                                                    class="form-label">Отчество</label>
+                                                                <input type="text" name="secondname"
+                                                                    class="form-control" id="secondname"
+                                                                    placeholder="Введите отчество"
+                                                                    value="{{instructor.6}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите действительное отчество.
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <hr class="my-3">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label for="adress" class="form-label">Адрес</label>
+                                                                <input type="text" name="adress" class="form-control"
+                                                                    id="adress" placeholder="ул. *********"
+                                                                    value="{{instructor.7}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите действительный адрес.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="phone" class="form-label">Телефон</label>
+                                                                <input type="text" name="phone" class="form-control"
+                                                                    id="phone" placeholder="+799********"
+                                                                    value="{{instructor.2}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите действительный телефон.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <br class="my-2">
+
+                                                        <div class="row">
+                                                            <div class="col-md-12"> <label for="inputDate">Дата
+                                                                    рождения</label>
+                                                                <input type="date" name="date" class="form-control"
+                                                                    value="{{instructor.8}}">
+                                                            </div>
+
+                                                        </div>
+
+                                                        <br class="my-2">
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label for="passport" class="form-label">Серия и номер
+                                                                    паспорта.</label>
+                                                                <input type="text" name="passport" class="form-control"
+                                                                    id="passport" placeholder="3316 ******"
+                                                                    value="{{instructor.9}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите действительную серию и номер паспорта.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="medicalcertificate" class="form-label">Номер
+                                                                    мед.
+                                                                    книжки</label>
+                                                                <input type="text" name="medicalcertificate"
+                                                                    class="form-control" id="medicalcertificate"
+                                                                    placeholder="421421424223" value="{{instructor.10}}"
+                                                                    required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите действительный номер медицинской книжки.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <br class="my-2">
+
+                                                        <div class="col-12">
+                                                            <label for="email" class="form-label">Электронная
+                                                                почта</label>
+                                                            <input type="email" name="email" class="form-control"
+                                                                id="email" placeholder="you@example.com"
+                                                                value="{{instructor.11}}" required>
+                                                            <div class="invalid-feedback">
+                                                                Введите действительную электронную почту.
+                                                            </div>
+                                                        </div>
+                                                        <hr class="my-3">
+
+                                                        <h5 class="text-center">Машина</h5>
+                                                        <hr class="my-3">
+
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label for="modelcar" class="form-label">Модель
+                                                                    машины</label>
+                                                                <input name="modelcar" type="text" class="form-control"
+                                                                    id="surname" placeholder="Введите модель машины"
+                                                                    value="{{instructor.3}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите модель машины.
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="colorcar" class="form-label">Цвет
+                                                                    машины</label>
+                                                                <input name="colorcar" type="text" class="form-control"
+                                                                    id="colorcar" placeholder="Введите цвет машины"
+                                                                    value="{{instructor.12}}" required>
+                                                                <div class="invalid-feedback">
+                                                                    Введите цвет машины.
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+
+                                                        <div class="col-12">
+                                                            <label for="reg_number_auto"
+                                                                class="form-label">Регистрационный
+                                                                номер
+                                                                авто</label>
+                                                            <input type="text" name="reg_number_auto"
+                                                                class="form-control" id="reg_number_auto"
+                                                                placeholder="Введите номер авто"
+                                                                value="{{instructor.13}}" required>
+                                                            <div class="invalid-feedback">
+                                                                Введите регистрационный номер авто.
+                                                            </div>
+                                                        </div>
+
+                                                        <br>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Закрыть</button>
+                                                            <button type="submit" class="btn btn-primary">Сохранить
+                                                                изменения</button>
+                                                        </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
+
+                        {% endfor %}
+
                     </tbody>
+                    <caption>Количество пользователей: {{count}}.</caption>
                 </table>
             </main>
         </div>
         <div class="container d-flex justify-content-end py-2 col-md-10">
-            <button class="btn btn-primary text-end mx-2" style="">Изменить</button>
-            <button class="btn btn-primary text-end" style="">Добавить инструктора</button>
-        </div>
+            <button type="button" class="btn btn-primary t  ext-end" data-bs-toggle="modal"
+                data-bs-target="#addinstructor">
+                Добавить инструктора
+            </button>
 
+            <!-- modal -->
+            <div class="modal fade" id="addinstructor" tabindex="-1" aria-labelledby="exampleModalLabel" class=""
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addinstructorLabel">Добавить инструктора</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="needs-validation" method="post">
+                                {% csrf_token %}
+                                <h5 class="text-center">Личные данные</h5>
+                                <hr class="my-2">
+                                <div class="">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="login" class="form-label">Логин</label>
+                                            <input type="text" name="login" class="form-control" id="login"
+                                                placeholder="Логин" value="{{user_data.adress}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите действительный логин.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="password" class="form-label">Пароль</label>
+                                            <input type="password" name="password" class="form-control" id="password"
+                                                placeholder="Пароль" value="{{user_data.telephone}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите действительный пароль.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-3">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="surname" class="form-label">Фамилия</label>
+                                            <input name="surname" type="text" class="form-control" id="surname"
+                                                placeholder="Введите фамилию" value="{{user_data.surname}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите действительную фамилию.
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="firstname" class="form-label">Имя</label>
+                                            <input name="firstname" type="text" class="form-control" id="firstname"
+                                                placeholder="Введите имя" value="{{user_data.name}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите действительное имя.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-4">
+                                            <label for="secondname" class="form-label">Отчество</label>
+                                            <input type="text" name="secondname" class="form-control" id="secondname"
+                                                placeholder="Введите отчество" value="{{user_data.secondname}}"
+                                                required>
+                                            <div class="invalid-feedback">
+                                                Введите действительное отчество.
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <hr class="my-3">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="adress" class="form-label">Адрес</label>
+                                            <input type="text" name="adress" class="form-control" id="adress"
+                                                placeholder="ул. *********" value="{{user_data.adress}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите действительный адрес.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="phone" class="form-label">Телефон</label>
+                                            <input type="text" name="phone" class="form-control" id="phone"
+                                                placeholder="+799********" value="{{user_data.telephone}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите действительный телефон.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br class="my-2">
+
+                                    <div class="row">
+                                        <div class="col-md-12"> <label for="inputDate">Дата рождения</label>
+                                            <input type="date" name="date" class="form-control"
+                                                value="{{user_data.dateofbirth}}">
+                                        </div>
+
+                                    </div>
+
+                                    <br class="my-2">
+
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="passport" class="form-label">Серия и номер паспорта.</label>
+                                            <input type="text" name="passport" class="form-control" id="passport"
+                                                placeholder="3316 ******" value="{{user_data.passport}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите действительную серию и номер паспорта.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="medicalcertificate" class="form-label">Номер мед.
+                                                книжки</label>
+                                            <input type="text" name="medicalcertificate" class="form-control"
+                                                id="medicalcertificate" placeholder="421421424223"
+                                                value="{{user_data.seriamedicalcertificate}}" required>
+                                            <div class="invalid-feedback">
+                                                Введите действительный номер медицинской книжки.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br class="my-2">
+
+                                    <div class="col-12">
+                                        <label for="email" class="form-label">Электронная почта</label>
+                                        <input type="email" name="email" class="form-control" id="email"
+                                            placeholder="you@example.com" value="{{user_data.email}}" required>
+                                        <div class="invalid-feedback">
+                                            Введите действительную электронную почту.
+                                        </div>
+                                    </div>
+                                    <hr class="my-3">
+
+                                    <h5 class="text-center">Машина</h5>
+                                    <hr class="my-3">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label for="modelcar" class="form-label">Модель машины</label>
+                                            <input name="modelcar" type="text" class="form-control" id="surname"
+                                                placeholder="Введите модель машины" value="{{user_data.modelcar}}"
+                                                required>
+                                            <div class="invalid-feedback">
+                                                Введите модель машины.
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="colorcar" class="form-label">Цвет машины</label>
+                                            <input name="colorcar" type="text" class="form-control" id="colorcar"
+                                                placeholder="Введите цвет машины" value="{{user_data.surname}}"
+                                                required>
+                                            <div class="invalid-feedback">
+                                                Введите цвет машины.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+
+                                    <div class="col-12">
+                                        <label for="reg_number_auto" class="form-label">Регистрационный номер
+                                            авто</label>
+                                        <input type="text" name="reg_number_auto" class="form-control"
+                                            id="reg_number_auto" placeholder="Введите номер авто"
+                                            value="{{user_data.secondname}}" required>
+                                        <div class="invalid-feedback">
+                                            Введите регистрационный номер авто.
+                                        </div>
+                                    </div>
+
+                                    <br>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Закрыть</button>
+                                        <button type="submit" class="btn btn-primary">Сохранить
+                                            изменения</button>
+                                    </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 </div>
+
+<script src="{% static "js/searchfio.js" %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 {% endblock content %}

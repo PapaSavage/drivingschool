@@ -8,17 +8,20 @@ from usertype import *
 
 # Create your views here.
 def home(request):
-    if admin_exist(request):
-        return redirect("admin_home")
+    try:
+        if admin_exist(request):
+            return redirect("admin_home")
 
-    elif instructor_exist(request):
-        return redirect("instructor_home")
+        elif instructor_exist(request):
+            return redirect("instructor_home")
 
-    elif lecture_exist(request):
-        return redirect("lector_home")
+        elif lecture_exist(request):
+            return redirect("lector_home")
 
-    elif student_exist(request):
-        return redirect("student_home")
+        elif student_exist(request):
+            return redirect("student_home")
+    except:
+        pass
 
     return render(request, "school/home.html")
 

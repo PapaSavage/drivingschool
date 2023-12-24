@@ -42,7 +42,7 @@ links_instructor_profile = [
 # Create your views here.
 @login_required
 def home(request):
-    if admin_exist(request):
+    if instructor_exist(request):
         data = {"links": links_instructor_home}
 
         return render(request, "instructor/home.html", context=data)
@@ -53,7 +53,7 @@ def home(request):
 
 def profile(request):
     user_data = Users.objects.get(id_user=request.user.id)
-    if admin_exist(request):
+    if instructor_exist(request):
         links = {"links": links_instructor_profile}
     else:
         messages.error(request, f"У вас нет доступа к этой ссылке")

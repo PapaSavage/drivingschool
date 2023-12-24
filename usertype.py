@@ -7,7 +7,7 @@ def admin_exist(request):
             "Select is_admin from Users where ID_user = %s", (request.user.id,)
         )
         row = cursor.fetchone()
-    if row:
+    if row[0]:
         return True
     else:
         return False
