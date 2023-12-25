@@ -173,7 +173,42 @@
                                 </div>
                             </div>
                         </div>
+
                 </form>
+
+                <form class="needs-validation" method="post">
+                    {% csrf_token %}
+                    <hr class="my-4">
+
+                    <button type="button" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal"
+                        data-bs-target="#payment">
+                        Оплатить курс
+                    </button>
+
+                    <!-- modal -->
+                    <div class="modal fade" id="payment" tabindex="-1" aria-labelledby="payment" class=""
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="paymentLabel">Оплатить</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Закрыть"></button>
+                                </div>
+                                <div class="modal-body text-start">
+                                    Вы хотите подтвердить оплату?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Отменить</button>
+                                    <button type="submit" name="pay" value="yes"
+                                        class="btn btn-primary">Оплатить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
             </div>
         </div>
     </main>

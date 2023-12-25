@@ -439,8 +439,16 @@ def profile(request):
         medicalcertificate = request.POST.get("medicalcertificate")
         email = request.POST.get("email")
 
+        payment = request.POST.get("pay")
+
         try:
             with connection.cursor() as cursor:
+                if payment:
+                    query = f"Update Contracts Set PaymentStatus = 1 where ID_student = {request.user.id}"
+                    cursor.execute(query)
+                    messages.success(request, f"Оплата прошла успешно")
+                    return redirect("student_profile")
+
                 query = "Update Users Set Surname = %s, Name = %s, SecondName = %s, Adress = %s, Telephone = %s, DateOfBirth = %s, Passport = %s, SeriaMedicalCertificate = %s, email = %s where id_user = %s"
                 vals = (
                     surname,
