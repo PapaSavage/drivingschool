@@ -1,0 +1,64 @@
+{% extends "users/layout.html" %}
+
+{% load static %}
+
+{% block title %}Студенты{%endblock title %}
+
+{% block refs %}
+{% for link in links %}
+<li class="nav-item ">
+    <a href="{% url link.url %}" class="nav-link {{link.name_block}}">
+        <i class="{{link.icon_class}}"></i> {{link.title}}
+    </a>
+</li>
+{% endfor %}
+{% endblock refs %}
+
+{% block content %}
+<div class="container-fluid">
+    <main class="py-4">
+
+        {% if messages %}
+        {% for message in messages %}
+        <br class="py-1">
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="container col-md-10">
+            <h1 class="text-center">Финансы</h1>
+            <hr class="py-1">
+            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Поиск по дате" class="form-control">
+
+            <br>
+            <main class="try">
+                <table class="table align-middle" id="myTable">
+                    <thead>
+                        <tr class="">
+                            <th scope="col">#</th>
+                            <th scope="col">Месяц/Год</th>
+                            <th scope="col">Оборот</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for oborot in oborots %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td>{{oborot.0}}</td>
+                            <td>{{oborot.1}}</td>
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </main>
+        </div>
+    </main>
+</div>
+
+<script src="{% static "js/searchdate.js" %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+{% endblock content %}

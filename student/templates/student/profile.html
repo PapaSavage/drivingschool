@@ -1,0 +1,185 @@
+{% extends "users/layout.html" %}
+
+{% load static %}
+
+{% block title %}Личный кабинет{%endblock title %}
+
+{% block refs %}
+{% for link in links %}
+<li class="nav-item ">
+    <a href="{% url link.url %}" class="nav-link {{link.name_block}}">
+        <i class="{{link.icon_class}}"></i> {{link.title}}
+    </a>
+</li>
+{% endfor %}
+{% endblock refs %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <main>
+        {% if messages %}
+        {% for message in messages %}
+        <br class="py-1">
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <div class="px-3 container col-md-10">
+            <div class="py-4 text-center">
+                <img class="rounded-circle account-img" src="{{ user.profile.image.url }}" alt="Ошибка"
+                    style="width: 100px; height: 100px;">
+                <h1>{{user.username}}</h1>
+                {% comment %} <p class="lead"></p> {% endcomment %}
+                <h4 class="mb-3 text-center">Редактирование профиля</h4>
+                <form class="needs-validation" method="post">
+                    {% csrf_token %}
+                    <div class="">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="surname" class="form-label">Фамилия</label>
+                                <input name="surname" type="text" class="form-control" id="surname"
+                                    placeholder="Введите фамилию" value="{{user_data.surname}}" required>
+                                <div class="invalid-feedback">
+                                    Введите действительную фамилию.
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <label for="firstname" class="form-label">Имя</label>
+                                <input name="firstname" type="text" class="form-control" id="firstname"
+                                    placeholder="Введите имя" value="{{user_data.name}}" required>
+                                <div class="invalid-feedback">
+                                    Введите действительное имя.
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <label for="secondname" class="form-label">Отчество</label>
+                                <input type="text" name="secondname" class="form-control" id="secondname"
+                                    placeholder="Введите отчество" value="{{user_data.secondname}}" required>
+                                <div class="invalid-feedback">
+                                    Введите действительное отчество.
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="adress" class="form-label">Адрес</label>
+                                <input type="text" name="adress" class="form-control" id="adress"
+                                    placeholder="ул. *********" value="{{user_data.adress}}" required>
+                                <div class="invalid-feedback">
+                                    Введите действительный адрес.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label">Телефон</label>
+                                <input type="text" name="phone" class="form-control" id="phone"
+                                    placeholder="+799********" value="{{user_data.telephone}}" required>
+                                <div class="invalid-feedback">
+                                    Введите действительный телефон.
+                                </div>
+                            </div>
+                        </div>
+
+                        <br class="my-4">
+
+                        <div class="row">
+                            <div class="col-md-12"> <label for="inputDate">Дата рождения</label>
+                                <input type="date" name="date" class="form-control" value="{{user_data.dateofbirth}}">
+                            </div>
+
+                        </div>
+
+                        <br class="my-4">
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="passport" class="form-label">Серия и номер паспорта.</label>
+                                <input type="text" name="passport" class="form-control" id="passport"
+                                    placeholder="3316 ******" value="{{user_data.passport}}" required>
+                                <div class="invalid-feedback">
+                                    Введите действительную серию и номер паспорта.
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="medicalcertificate" class="form-label">Номер медицинской книжки</label>
+                                <input type="text" name="medicalcertificate" class="form-control"
+                                    id="medicalcertificate" placeholder="421421424223"
+                                    value="{{user_data.seriamedicalcertificate}}" required>
+                                <div class="invalid-feedback">
+                                    Введите действительный номер медицинской книжки.
+                                </div>
+                            </div>
+                        </div>
+
+                        <br class="my-4">
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Электронная почта</label>
+                            <input type="email" name="email" class="form-control" id="email"
+                                placeholder="you@example.com" value="{{user_data.email}}" required>
+                            <div class="invalid-feedback">
+                                Введите действительную электронную почту.
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="drivingcategory" class="form-label">Категория вождения</label>
+                                <input type="text" name="drivingcategory" class="form-control" id="drivingcategory"
+                                    placeholder="" value="{{drivingcategory.0}}" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="instfio" class="form-label">Инструктор</label>
+                                <input type="text" name="instfio" class="form-control" id="drivingcategory"
+                                    placeholder="" value="{{inst_fio.0}}" disabled>
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <button type="button" class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Подтвердить изменения
+                        </button>
+
+                        <!-- modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            class="" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Редактировать профиль</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Закрыть"></button>
+                                    </div>
+                                    <div class="modal-body text-start">
+                                        Вы хотите подтвердить изменения?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Закрыть</button>
+                                        <button type="submit" class="btn btn-primary">Сохранить
+                                            изменения</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+
+<script src="{% static "js/checkout.js" %}"></script>
+{% endblock content %}

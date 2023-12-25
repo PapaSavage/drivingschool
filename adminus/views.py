@@ -450,7 +450,17 @@ def money(request):
     if admin_exist(request):
         data = {"links": links_admin_money}
 
-        return render(request, "adminus/dev.html", context=data)
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "Select Concat(Month(Contracts.DateContractStart), '-', Year(Contracts.DateContractStart)) as Datas, Sum(DrivingCategories.Price) as money from Contracts JOIN PlansEducations on PlansEducations.ID_plan = Contracts.ID_plan JOIN DrivingCategories on PlansEducations.ID_category = DrivingCategories.ID_category GROUP BY Datas"
+            )
+            rows = cursor.fetchall()
+            oborots = []
+            for row in rows:
+                oborots.append(row)
+            data = data | {"oborots": oborots}
+
+        return render(request, "adminus/money.html", context=data)
     else:
         messages.error(request, f"У вас нет доступа к этой ссылке")
         return redirect("user_home")
