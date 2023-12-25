@@ -40,6 +40,24 @@ links_admin_home = [
         "title": "Студенты",
         "icon_class": "fas fa-user-graduate fa-fw me-1",
     },
+    {
+        "url": "admin_groups",
+        "name_block": "link-body-emphasis",
+        "title": "Группы",
+        "icon_class": "fas fa-users fa-fw me-1",
+    },
+    {
+        "url": "admin_reports",
+        "name_block": "link-body-emphasis",
+        "title": "Отчёты",
+        "icon_class": "fas fa-flag fa-fw me-1",
+    },
+    {
+        "url": "admin_money",
+        "name_block": "link-body-emphasis",
+        "title": "Финансы",
+        "icon_class": "fas fa-money-bill-alt fa-fw me-1",
+    },
 ]
 links_admin_profile = [
     {
@@ -71,6 +89,24 @@ links_admin_profile = [
         "name_block": "link-body-emphasis",
         "title": "Студенты",
         "icon_class": "fas fa-user-graduate fa-fw me-1",
+    },
+    {
+        "url": "admin_groups",
+        "name_block": "link-body-emphasis",
+        "title": "Группы",
+        "icon_class": "fas fa-users fa-fw me-1",
+    },
+    {
+        "url": "admin_reports",
+        "name_block": "link-body-emphasis",
+        "title": "Отчёты",
+        "icon_class": "fas fa-flag fa-fw me-1",
+    },
+    {
+        "url": "admin_money",
+        "name_block": "link-body-emphasis",
+        "title": "Финансы",
+        "icon_class": "fas fa-money-bill-alt fa-fw me-1",
     },
 ]
 links_admin_instructors = [
@@ -104,6 +140,24 @@ links_admin_instructors = [
         "title": "Студенты",
         "icon_class": "fas fa-user-graduate fa-fw me-1",
     },
+    {
+        "url": "admin_groups",
+        "name_block": "link-body-emphasis",
+        "title": "Группы",
+        "icon_class": "fas fa-users fa-fw me-1",
+    },
+    {
+        "url": "admin_reports",
+        "name_block": "link-body-emphasis",
+        "title": "Отчёты",
+        "icon_class": "fas fa-flag fa-fw me-1",
+    },
+    {
+        "url": "admin_money",
+        "name_block": "link-body-emphasis",
+        "title": "Финансы",
+        "icon_class": "fas fa-money-bill-alt fa-fw me-1",
+    },
 ]
 links_admin_lectures = [
     {
@@ -135,6 +189,24 @@ links_admin_lectures = [
         "name_block": "link-body-emphasis",
         "title": "Студенты",
         "icon_class": "fas fa-user-graduate fa-fw me-1",
+    },
+    {
+        "url": "admin_groups",
+        "name_block": "link-body-emphasis",
+        "title": "Группы",
+        "icon_class": "fas fa-users fa-fw me-1",
+    },
+    {
+        "url": "admin_reports",
+        "name_block": "link-body-emphasis",
+        "title": "Отчёты",
+        "icon_class": "fas fa-flag fa-fw me-1",
+    },
+    {
+        "url": "admin_money",
+        "name_block": "link-body-emphasis",
+        "title": "Финансы",
+        "icon_class": "fas fa-money-bill-alt fa-fw me-1",
     },
 ]
 links_admin_students = [
@@ -168,6 +240,174 @@ links_admin_students = [
         "title": "Студенты",
         "icon_class": "fas fa-user-graduate fa-fw me-1",
     },
+    {
+        "url": "admin_groups",
+        "name_block": "link-body-emphasis",
+        "title": "Группы",
+        "icon_class": "fas fa-users fa-fw me-1",
+    },
+    {
+        "url": "admin_reports",
+        "name_block": "link-body-emphasis",
+        "title": "Отчёты",
+        "icon_class": "fas fa-flag fa-fw me-1",
+    },
+    {
+        "url": "admin_money",
+        "name_block": "link-body-emphasis",
+        "title": "Финансы",
+        "icon_class": "fas fa-money-bill-alt fa-fw me-1",
+    },
+]
+links_admin_reports = [
+    {
+        "url": "admin_home",
+        "name_block": "link-body-emphasis",
+        "title": "Главная",
+        "icon_class": "fas fa-house-user fa-fw me-1",
+    },
+    {
+        "url": "admin_profile",
+        "name_block": "link-body-emphasis",
+        "title": "Личный кабинет",
+        "icon_class": "fas fa-child fa-fw me-1",
+    },
+    {
+        "url": "admin_instructors",
+        "name_block": "link-body-emphasis",
+        "title": "Инструкторы",
+        "icon_class": "fas fa-biking fa-fw me-1",
+    },
+    {
+        "url": "admin_lectures",
+        "name_block": "link-body-emphasis",
+        "title": "Лекторы",
+        "icon_class": "fas fa-chalkboard-teacher fa-fw me-1",
+    },
+    {
+        "url": "admin_students",
+        "name_block": "link-body-emphasis",
+        "title": "Студенты",
+        "icon_class": "fas fa-user-graduate fa-fw me-1",
+    },
+    {
+        "url": "admin_groups",
+        "name_block": "link-body-emphasis",
+        "title": "Группы",
+        "icon_class": "fas fa-users fa-fw me-1",
+    },
+    {
+        "url": "admin_reports",
+        "name_block": "active",
+        "title": "Отчёты",
+        "icon_class": "fas fa-flag fa-fw me-1",
+    },
+    {
+        "url": "admin_money",
+        "name_block": "link-body-emphasis",
+        "title": "Финансы",
+        "icon_class": "fas fa-money-bill-alt fa-fw me-1",
+    },
+]
+links_admin_groups = [
+    {
+        "url": "admin_home",
+        "name_block": "link-body-emphasis",
+        "title": "Главная",
+        "icon_class": "fas fa-house-user fa-fw me-1",
+    },
+    {
+        "url": "admin_profile",
+        "name_block": "link-body-emphasis",
+        "title": "Личный кабинет",
+        "icon_class": "fas fa-child fa-fw me-1",
+    },
+    {
+        "url": "admin_instructors",
+        "name_block": "link-body-emphasis",
+        "title": "Инструкторы",
+        "icon_class": "fas fa-biking fa-fw me-1",
+    },
+    {
+        "url": "admin_lectures",
+        "name_block": "link-body-emphasis",
+        "title": "Лекторы",
+        "icon_class": "fas fa-chalkboard-teacher fa-fw me-1",
+    },
+    {
+        "url": "admin_students",
+        "name_block": "link-body-emphasis",
+        "title": "Студенты",
+        "icon_class": "fas fa-user-graduate fa-fw me-1",
+    },
+    {
+        "url": "admin_groups",
+        "name_block": "active",
+        "title": "Группы",
+        "icon_class": "fas fa-users fa-fw me-1",
+    },
+    {
+        "url": "admin_reports",
+        "name_block": "link-body-emphasis",
+        "title": "Отчёты",
+        "icon_class": "fas fa-flag fa-fw me-1",
+    },
+    {
+        "url": "admin_money",
+        "name_block": "link-body-emphasis",
+        "title": "Финансы",
+        "icon_class": "fas fa-money-bill-alt fa-fw me-1",
+    },
+]
+links_admin_money = [
+    {
+        "url": "admin_home",
+        "name_block": "link-body-emphasis",
+        "title": "Главная",
+        "icon_class": "fas fa-house-user fa-fw me-1",
+    },
+    {
+        "url": "admin_profile",
+        "name_block": "link-body-emphasis",
+        "title": "Личный кабинет",
+        "icon_class": "fas fa-child fa-fw me-1",
+    },
+    {
+        "url": "admin_instructors",
+        "name_block": "link-body-emphasis",
+        "title": "Инструкторы",
+        "icon_class": "fas fa-biking fa-fw me-1",
+    },
+    {
+        "url": "admin_lectures",
+        "name_block": "link-body-emphasis",
+        "title": "Лекторы",
+        "icon_class": "fas fa-chalkboard-teacher fa-fw me-1",
+    },
+    {
+        "url": "admin_students",
+        "name_block": "link-body-emphasis",
+        "title": "Студенты",
+        "icon_class": "fas fa-user-graduate fa-fw me-1",
+    },
+    {
+        "url": "admin_groups",
+        "name_block": "link-body-emphasis",
+        "title": "Группы",
+        "icon_class": "fas fa-users fa-fw me-1",
+    },
+    {
+        "url": "admin_reports",
+        "name_block": "link-body-emphasis",
+        "title": "Отчёты",
+        "icon_class": "fas fa-flag fa-fw me-1",
+    },
+    {
+        "url": "admin_money",
+        "name_block": "active",
+        "title": "Финансы",
+        "icon_class": "fas fa-money-bill-alt fa-fw me-1",
+    },
 ]
 
 
@@ -178,6 +418,39 @@ def home(request):
         data = {"links": links_admin_home}
 
         return render(request, "adminus/home.html", context=data)
+    else:
+        messages.error(request, f"У вас нет доступа к этой ссылке")
+        return redirect("user_home")
+
+
+@login_required
+def groups(request):
+    if admin_exist(request):
+        data = {"links": links_admin_groups}
+
+        return render(request, "adminus/groups.html", context=data)
+    else:
+        messages.error(request, f"У вас нет доступа к этой ссылке")
+        return redirect("user_home")
+
+
+@login_required
+def reports(request):
+    if admin_exist(request):
+        data = {"links": links_admin_reports}
+
+        return render(request, "adminus/dev.html", context=data)
+    else:
+        messages.error(request, f"У вас нет доступа к этой ссылке")
+        return redirect("user_home")
+
+
+@login_required
+def money(request):
+    if admin_exist(request):
+        data = {"links": links_admin_money}
+
+        return render(request, "adminus/dev.html", context=data)
     else:
         messages.error(request, f"У вас нет доступа к этой ссылке")
         return redirect("user_home")

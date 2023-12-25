@@ -12,6 +12,8 @@ urlpatterns = [
     path("instructors", views.instructors, name="admin_instructors"),
     path("lectures", views.lectures, name="admin_lectures"),
     path("students", views.students, name="admin_students"),
-    path("groups", views.home, name="admin_groups"),
+    path("groups", views.groups, name="admin_groups"),
+    path("reports", views.reports, name="admin_reports"),
+    path("money", views.money, name="admin_money"),
     # path("", views.home, name="home"),
 ]

@@ -207,7 +207,7 @@ def home(request):
         return redirect("instructor_home")
 
     elif lecture_exist(request):
-        return redirect("lector_home")
+        return redirect("lecture_home")
 
     elif student_exist(request):
         return redirect("student_home")
